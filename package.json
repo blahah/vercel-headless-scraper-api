@@ -1,0 +1,25 @@
+{
+  "name": "memex-feed-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "got": "^11.8.2",
+    "metascraper": "^5.21.3",
+    "metascraper-author": "^5.21.3",
+    "metascraper-date": "^5.21.3",
+    "metascraper-description": "^5.21.3",
+    "metascraper-image": "^5.21.3",
+    "metascraper-logo": "^5.21.3",
+    "metascraper-publisher": "^5.21.3",
+    "metascraper-title": "^5.21.3",
+    "metascraper-url": "^5.21.3",
+    "puppeteer": "^8.0.0"
+  }
+}
