@@ -4,19 +4,19 @@ Live API: `https://memex-feed-parser.vercel.app/`
 
 - [memex-feed-parser](#memex-feed-parser)
   - [API](#api)
-    - [`GET /api/memex/[sharedListId]`](#get-apimemexsharedlistid)
+    - [Endpoint: `GET /api/memex/[sharedListId]`](#endpoint-get-apimemexsharedlistid)
       - [response](#response)
       - [pages](#pages)
       - [annotations](#annotations)
       - [example](#example)
       - [try it](#try-it)
-    - [`get /api/scrape/[url]`](#get-apiscrapeurl)
+    - [Endpoint: `get /api/scrape/[url]`](#endpoint-get-apiscrapeurl)
       - [example](#example-1)
       - [try it](#try-it-1)
 
 ## API
 
-### `GET /api/memex/[sharedListId]`
+### Endpoint: `GET /api/memex/[sharedListId]`
 
 Retrieve the Memex shared feed with the provided ID, and return the entries as structured data.
 
@@ -104,7 +104,7 @@ Returns the response:
 
 [Try this example on the live API](https://memex-feed-parser.vercel.app/api/memex/tEr22YvmUnYZ30vFiOL0)
 
-### `get /api/scrape/[url]`
+### Endpoint: `get /api/scrape/[url]`
 
 Scrape the URL and return structured metadata.
 
