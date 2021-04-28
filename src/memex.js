@@ -1,8 +1,30 @@
-const puppeteer = require('puppeteer')
+let chrome = {};
+let puppeteer;
+let opts = {}
+
+const IN_VERCEL = !!process.env.AWS_LAMBDA_FUNCTION_VERSION
+
+if (IN_VERCEL) {
+  // running on the Vercel platform.
+  chrome = require('chrome-aws-lambda')
+  puppeteer = require('puppeteer-core')
+} else {
+  // running locally.
+  puppeteer = require('puppeteer')
+}
 
 // e.g. getfeed('https://memex.social/c/tEr22YvmUnYZ30vFiOL0')
 export async function getfeed (sharedList) {
-  const browser = await puppeteer.launch()
+  if (IN_VERCEL) {
+    opts = {
+      args: [...chrome.args, '--hide-scrollbars', '--disable-web-security'],
+      defaultViewport: chrome.defaultViewport,
+      executablePath: await chrome.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true
+    }
+  }
+  const browser = await puppeteer.launch(opts)
   const page = await browser.newPage()
   await page.goto(
     `https://memex.social/c/${sharedList}`,
