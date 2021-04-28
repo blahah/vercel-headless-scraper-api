@@ -1,6 +1,7 @@
 import { getfeed } from '../../src/memex'
+import { corsify } from '../../src/corsify'
 
-module.exports = async (req, res) => {
+const handler = async (req, res) => {
   const {
     query: { listId }
   } = req
@@ -13,3 +14,5 @@ module.exports = async (req, res) => {
     annotations: feed.annotations
   })
 }
+
+module.exports = corsify(handler)

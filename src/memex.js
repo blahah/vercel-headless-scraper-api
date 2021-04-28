@@ -48,6 +48,7 @@ async function extract (sharedList) {
       return {
         source: 'memex',
         type: 'link',
+        id: entry.id,
         url: entry.originalUrl,
         title: entry.entryTitle,
         created: entry.createdWhen,
@@ -62,6 +63,7 @@ async function extract (sharedList) {
       return {
         source: 'memex',
         type: 'annotation',
+        id: entry.id,
         url: 'https://' + entry.normalizedPageUrl,
         quote: entry.annotation.body,
         comment: entry.annotation.comment,

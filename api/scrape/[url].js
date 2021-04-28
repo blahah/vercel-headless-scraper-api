@@ -1,6 +1,7 @@
 import { scrape } from '../../src/scrape'
+import { corsify } from '../../src/corsify'
 
-module.exports = async (req, res) => {
+const handler = async (req, res) => {
   const {
     query: { url }
   } = req
@@ -13,3 +14,5 @@ module.exports = async (req, res) => {
     metadata
   })
 }
+
+module.exports = corsify(handler)
