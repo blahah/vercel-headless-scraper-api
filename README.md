@@ -1,11 +1,18 @@
 # memex-feed-parser
 
+Live API: `https://memex-feed-parser.vercel.app/`
+
 - [memex-feed-parser](#memex-feed-parser)
   - [API](#api)
     - [`GET /api/memex/[sharedListId]`](#get-apimemexsharedlistid)
-      - [Example](#example)
+      - [response](#response)
+      - [pages](#pages)
+      - [annotations](#annotations)
+      - [example](#example)
+      - [try it](#try-it)
     - [`get /api/scrape/[url]`](#get-apiscrapeurl)
-      - [Example](#example-1)
+      - [example](#example-1)
+      - [try it](#try-it-1)
 
 ## API
 
@@ -13,7 +20,9 @@
 
 Retrieve the Memex shared feed with the provided ID, and return the entries as structured data.
 
-The response has the form:
+#### response
+
+The response is a JSON object which has the form:
 
 ```json
 {
@@ -22,6 +31,8 @@ The response has the form:
   "annotations": []
 }
 ```
+
+#### pages
 
 Each entry in `pages` takes the form:
 
@@ -36,13 +47,23 @@ Each entry in `pages` takes the form:
 }
 ```
 
+#### annotations
+
 Each entry in `annotations` takes the form:
 
 ```json
-
+{
+  "source": "memex",
+  "type": "annotation",
+  "url": "", // the URL
+  "quote": "", // the quote part of the annotation
+  "comment": "", // the comment part of the annotation
+  "created": 1616803866655, // as Unix Timestamp (milliseconds)
+  "updated": 1618346658307
+}
 ```
 
-#### Example
+#### example
 
 The query:
 
@@ -76,14 +97,18 @@ Returns the response:
   },
   ...
   ]
-}
+})
 ```
+
+#### try it
+
+[Try this example on the live API](https://memex-feed-parser.vercel.app/api/memex/tEr22YvmUnYZ30vFiOL0)
 
 ### `get /api/scrape/[url]`
 
 Scrape the URL and return structured metadata.
 
-#### Example
+#### example
 
 The query:
 
@@ -106,3 +131,7 @@ Returns the response:
   }
 }
 ```
+
+#### try it
+
+[Try this example on the live API](https://memex-feed-parser.vercel.app/api/scrape/https%3A%2F%2Fwww.theguardian.com%2Fenvironment%2F2021%2Fapr%2F28%2Fspeed-at-which-worlds-glaciers-are-melting-has-doubled-in-20-years)
