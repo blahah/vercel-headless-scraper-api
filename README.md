@@ -13,6 +13,8 @@ Live API: `https://memex-feed-parser.vercel.app/`
     - [Endpoint: `get /api/scrape/[url]`](#endpoint-get-apiscrapeurl)
       - [example](#example-1)
       - [try it](#try-it-1)
+  - [Development](#development)
+    - [Deploy config](#deploy-config)
 
 ## API
 
@@ -135,3 +137,53 @@ Returns the response:
 #### try it
 
 [Try this example on the live API](https://memex-feed-parser.vercel.app/api/scrape/https%3A%2F%2Fwww.theguardian.com%2Fenvironment%2F2021%2Fapr%2F28%2Fspeed-at-which-worlds-glaciers-are-melting-has-doubled-in-20-years)
+
+## Development
+
+Requirements: `npm install --global vercel`
+Login with `vercel login`
+
+To run locally:
+
+```bash
+vercel dev
+```
+
+To deploy as a test deployment:
+
+```bash
+vercel
+```
+
+To deploy to production:
+
+```bash
+vercel --prod
+```
+
+### Deploy config
+
+Good cache settings to add to `.vercel/project.json` are:
+
+```
+"headers": [
+  {
+    "source": "/api/memex",
+    "headers" : [
+      {
+        "key" : "Cache-Control",
+        "value" : "public, s-maxage=20, stale-while-revalidate=40"
+      }
+    ]
+  },
+  {
+    "source": "/api/scrape",
+    "headers" : [
+      {
+        "key" : "Cache-Control",
+        "value" : "public, s-maxage=2592000, stale-while-revalidate"
+      }
+    ]
+  }
+]
+```
