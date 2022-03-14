@@ -1,3 +1,5 @@
+// this endpoint scrapes any webpage and returns detailed metadata
+
 const got = require('got')
 const metascraper = require('metascraper')([
   require('metascraper-author')(),

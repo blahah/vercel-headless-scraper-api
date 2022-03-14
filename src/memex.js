@@ -5,7 +5,7 @@ let opts = {}
 const IN_VERCEL = !!process.env.AWS_LAMBDA_FUNCTION_VERSION
 
 if (IN_VERCEL) {
-  // running on the Vercel platform.
+  // running on the Vercel platform, or aws lambda
   chrome = require('chrome-aws-lambda')
   puppeteer = require('puppeteer-core')
 } else {
@@ -13,6 +13,9 @@ if (IN_VERCEL) {
   puppeteer = require('puppeteer')
 }
 
+// open a headless browser and navigate to the memex feed page
+// wait for it to load
+// then run the extraction code
 // e.g. getfeed('https://memex.social/c/tEr22YvmUnYZ30vFiOL0')
 export async function getfeed (sharedList) {
   if (IN_VERCEL) {
@@ -28,7 +31,7 @@ export async function getfeed (sharedList) {
   const page = await browser.newPage()
   await page.goto(
     `https://memex.social/c/${sharedList}`,
-    { waitUntil: 'networkidle2' }
+    { waitUntil: 'networkidle2' } // works for most single page apps
   )
 
   const alldata = await page.evaluate(extract, sharedList)
@@ -36,6 +39,11 @@ export async function getfeed (sharedList) {
   return alldata
 }
 
+// this runs inside the headless browser
+// once the page has finished loading
+// it wraps several other functions - if they
+// aren't included inside this function
+// *they cannot be called from the headless browser*
 async function extract (sharedList) {
   async function getSharedPages ({ sharedList }) {
     const entries = window.storage.serverStorageManager
